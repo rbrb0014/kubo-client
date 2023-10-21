@@ -16,11 +16,11 @@ public class IpfsController {
     IpfsService ipfsService;
 
     @PostMapping("/contents")
-    String postContents(@RequestParam("image") MultipartFile file) throws IOException {
+    String[] postContents(@RequestParam("image") MultipartFile file) throws IOException {
         return ipfsService.createContents(file);
     }
 
-    @GetMapping(value = "/contents/{cid}", produces = MediaType.IMAGE_PNG_VALUE)
+    @GetMapping(value = "/contents/{cid}")
     ResponseEntity<?> getContents(@PathVariable("cid") String cid) throws IOException {
         String type = "image/png";
         byte[] contents = ipfsService.getContents(cid);
